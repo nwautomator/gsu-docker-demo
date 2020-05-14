@@ -1,0 +1,85 @@
+<html>
+
+<head>
+  <title>Docker Demo 3</title>
+
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Amatic+SC:700);
+
+    body {
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Amatic SC', cursive;
+      font-weight: normal;
+      color: black;
+      font-size: 2.5em;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .input-table,
+    tr,
+    td {
+      padding: 6px;
+      font-style: normal;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .output-table {
+      border: 1px solid black;
+      font-style: normal;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 25px;
+      padding: 15px;
+      text-align: left;
+    }
+
+    body {
+      background-color: lightsteelblue
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hello there! Leave a message?</h1>
+  <form action="/result" method="POST">
+    <table class="input-table">
+      <tr>
+        <td>First Name:</td>
+        <td><input type="text" size="30" name="fname" /></td>
+      </tr>
+      <tr>
+        <td>Last Name:</td>
+        <td><input type="text" size="30" name="lname" /></td>
+      </tr>
+      <tr>
+        <td>Message:</td>
+        <td><textarea cols="35" rows="3" name="message" maxlength="50"></textarea></td>
+      </tr>
+    </table>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset"></p>
+  </form>
+  <h1>Here are some other users and the messages they left:</h1>
+  <table class="output-table" border="1">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Message</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.0 }}</td>
+      <td>{{ user.1 }}</td>
+      <td>{{ user.2 }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+
+</html>

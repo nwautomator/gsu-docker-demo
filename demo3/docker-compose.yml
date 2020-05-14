@@ -1,0 +1,46 @@
+version: "2.2"
+services:
+  nginx:
+    image: linuxserver/nginx
+    container_name: nginx
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /opt/docker/demo/demo3/nginx:/config
+    ports:
+      - 8002:80
+    restart: always
+    networks:
+      - demo3-network
+    depends_on:
+      - demo3
+  db:
+    image: linuxserver/mariadb
+    container_name: mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=somecrazyrootpassword
+      - TZ=America/New_York
+      - MYSQL_DATABASE=demo3
+      - MYSQL_USER=demo3
+      - MYSQL_PASSWORD=demo3
+    volumes:
+      - /opt/docker/demo/demo3/mariadb:/config
+    restart: unless-stopped
+    networks:
+      - demo3-network
+  demo3:
+    container_name: demo3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - demo3-network
+    depends_on:
+      - db
+networks:
+  demo3-network:

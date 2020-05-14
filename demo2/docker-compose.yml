@@ -1,0 +1,12 @@
+version: "2.2"
+services:
+  demo2:
+    container_name: demo2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - "8001:8001"
